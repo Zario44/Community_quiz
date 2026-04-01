@@ -16,6 +16,7 @@ use Spatie\Prometheus\Collectors\Queue\QueuePendingJobsCollector;
 use Spatie\Prometheus\Collectors\Queue\QueueReservedJobsCollector;
 use Spatie\Prometheus\Collectors\Queue\QueueSizeCollector;
 use Spatie\Prometheus\Facades\Prometheus;
+use App\Models\User;
 
 class PrometheusServiceProvider extends ServiceProvider
 {
@@ -30,17 +31,21 @@ class PrometheusServiceProvider extends ServiceProvider
                 return 123.45;
             });
 
+        Prometheus::addGauge('User count')
+            ->helpText('This is the number of users in our app')
+            ->value(fn() => User::count());
+
         /*
          * Uncomment this line if you want to export
          * all Horizon metrics to prometheus
          */
-        // $this->registerHorizonCollectors();
+        //$this->registerHorizonCollectors();
 
         /*
          * Uncomment this line if you want to export queue metrics to Prometheus.
          * You need to pass an array of queues to monitor.
          */
-        // $this->registerQueueCollectors(['default']);
+        //$this->registerQueueCollectors(['default']);
     }
 
     public function registerHorizonCollectors(): self
