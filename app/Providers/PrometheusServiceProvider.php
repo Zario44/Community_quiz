@@ -53,8 +53,7 @@ class PrometheusServiceProvider extends ServiceProvider
                     // Calcul : RAM Utilisée = Totale - Disponible
                     $usedKb = (int)$total[1] - (int)$available[1];
                     
-                    // On convertit en octets (bytes) car Prometheus préfère cette unité
-                    return $usedKb;
+                    return $usedKb/1024; // Convertir en Mo (mégaoctets) pour une meilleure lisibilité dans Prometheus
                 }
 
                 return 0;
