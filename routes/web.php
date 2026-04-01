@@ -17,9 +17,11 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('dashboard', [Dashboard::class, 'index'])
+->middleware(['auth'])
 ->name('dashboard');
 
 Route::get('questions/form', FormQuestion::class)
+->middleware(['auth'])
 ->name('questions-form');
 
 
@@ -34,19 +36,24 @@ Route::get('questions/confirm/{id}', function ($id) {
     }
     return view('questions.confirm', ['question' => $question]);
 })
+->middleware(['auth'])
 ->name('confirmQuestions');
 
 
 Route::get('user/questions', UserQuestions::class)
+->middleware(['auth'])
 ->name('user.questions');
 
 Route::get('quiz', QuizController::class . '@index')
+->middleware(['auth'])
 ->name('quiz');
 
 Route::get('quiz/play', GenerateQuiz::class)
+->middleware(['auth'])
 ->name('quiz.play');
 
 Route::get('ticket/question', Ticket::class)
+->middleware(['auth'])
 ->name('ticket.question');
 
 Route::middleware([IsAdmin::class])
