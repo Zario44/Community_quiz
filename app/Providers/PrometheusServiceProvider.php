@@ -34,6 +34,31 @@ class PrometheusServiceProvider extends ServiceProvider
         Prometheus::addGauge('User count')
             ->helpText('This is the number of users in our app')
             ->value(fn() => User::count());
+        
+        Prometheus::addGauge('server_ram_used_bytes')
+            ->helpText('RAM actuellement utilisée par le serveur Ubuntu (en octets)')
+            ->value(function () {
+                // On lit le fichier système Linux qui contient les infos de la RAM
+                $meminfo = @file_get_contents('/proc/meminfo');
+                
+                if (!$meminfo) {
+                    return 0;
+                }
+
+                // On extrait la RAM totale et la RAM disponible (en kilo-octets)
+                preg_match('/MemTotal:\s+(\d+)\s+kB/', $meminfo, $total);
+                preg_match('/MemAvailable:\s+(\d+)\s+kB/', $meminfo, $available);
+
+                if (isset($total[1]) && isset($available[1])) {
+                    // Calcul : RAM Utilisée = Totale - Disponible
+                    $usedKb = (int)$total[1] - (int)$available[1];
+                    
+                    // On convertit en octets (bytes) car Prometheus préfère cette unité
+                    return $usedKb * 1024;
+                }
+
+                return 0;
+            });
 
         /*
          * Uncomment this line if you want to export
