@@ -17,11 +17,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('dashboard', [Dashboard::class, 'index'])
-->middleware(['auth', 'verified'])
 ->name('dashboard');
 
 Route::get('questions/form', FormQuestion::class)
-->middleware(['auth', 'verified'])
 ->name('questions-form');
 
 
@@ -36,24 +34,19 @@ Route::get('questions/confirm/{id}', function ($id) {
     }
     return view('questions.confirm', ['question' => $question]);
 })
-->middleware(['auth', 'verified'])
 ->name('confirmQuestions');
 
 
 Route::get('user/questions', UserQuestions::class)
-->middleware(['auth', 'verified'])
 ->name('user.questions');
 
 Route::get('quiz', QuizController::class . '@index')
-->middleware(['auth', 'verified'])
 ->name('quiz');
 
 Route::get('quiz/play', GenerateQuiz::class)
-->middleware(['auth'], 'verified')
 ->name('quiz.play');
 
 Route::get('ticket/question', Ticket::class)
-->middleware(['auth', 'verified'])
 ->name('ticket.question');
 
 Route::middleware([IsAdmin::class])
