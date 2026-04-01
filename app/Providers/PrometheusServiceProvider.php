@@ -54,7 +54,7 @@ class PrometheusServiceProvider extends ServiceProvider
                     $usedKb = (int)$total[1] - (int)$available[1];
                     
                     // On convertit en octets (bytes) car Prometheus préfère cette unité
-                    return $usedKb * 1024;
+                    return $usedKb;
                 }
 
                 return 0;
