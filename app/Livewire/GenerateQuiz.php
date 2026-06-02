@@ -19,15 +19,9 @@ class GenerateQuiz extends Component
 
     public function mount(ScoreRepository $scoreRepository) 
     {
-        // 1. Création propre
-        // Assure-toi d'avoir mis $fillable dans le modèle Score !
         $newScore = $scoreRepository->createScore(auth()->id());
-
-
-        // 2. On stocke l'ID dans la variable publique
         $this->quizId = $newScore->id;
         
-        // 3. Chargement des questions
         $this->questions = Question::with('answers')
             ->inRandomOrder()
             ->limit(10)
@@ -36,21 +30,15 @@ class GenerateQuiz extends Component
 
     public function selectAnswer(ScoreService $scoreService, $answerId)
     {
-        // 1. On récupère le score grâce à l'ID stocké
         $scoreEntry = Score::find($this->quizId);
 
-        // 2. On vérifie et on met à jour
         if ($scoreEntry) {
-            // Note : Modifie ton service pour qu'il renvoie true/false
-            // C'est plus simple pour gérer l'affichage
             $isCorrect = $scoreService->scoreUpdate($answerId, $scoreEntry);
             
             if ($isCorrect) {
-                $this->localScore++; // +1 à l'écran tout de suite
+                $this->localScore++;
             }
         }
-
-        // 3. Question suivante
         $this->currentIndex++;
     }
 
@@ -64,7 +52,6 @@ class GenerateQuiz extends Component
     public function render()
     {
         return view('quiz.play', [
-            // On affiche la variable locale, c'est instantané
             'finalScore' => $this->localScore 
         ]);
     }

@@ -12,13 +12,11 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. On appelle tes seeders personnalisés
         $this->call([
             AdminSeeder::class,     
-            QuestionSeeder::class, // Tu pourras décommenter ça quand tu l'auras créé
+            QuestionSeeder::class, 
         ]);
 
-        // 2. (Optionnel) Créer un utilisateur de test en plus
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -30,7 +28,6 @@ class DatabaseSeeder extends Seeder
             Question::factory()->count(5)
                 ->has(
                     Answer::factory()->count(3)     
-                        // ... et qui a 1 réponse bonne (on force l'état)
                         ->has(Answer::factory()->state(['is_correct' => true]))))
                         ->create();
 

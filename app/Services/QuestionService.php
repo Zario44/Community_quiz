@@ -8,15 +8,10 @@ use App\Models\User;
 
 class QuestionService
 {
-    /**
-     * Crée ou met à jour une question et ses réponses
-     */
     public function saveQuestion(array $data, ?int $questionId = null, int $userId): Question
     {
-        // DB::transaction = Sécurité. Si une ligne plante, TOUT est annulé.
         return DB::transaction(function () use ($data, $questionId, $userId) {
             
-            // 1. On sauvegarde la Question
             $question = Question::updateOrCreate(
                 ['id' => $questionId],
                 [
@@ -26,8 +21,6 @@ class QuestionService
                 ]
             );
 
-            // 2. On gère les Réponses (Nettoyage + Recréation)
-            // C'est ici qu'on met la logique métier un peu "lourde"
             $question->answers()->delete();
 
             foreach ($data['answers'] as $index => $text) {
@@ -45,11 +38,10 @@ class QuestionService
     {
         $question = Question::find($questionId);
         $user = User::find($userId);
-        // On vérifie si la question existe ET si c'est bien celle de l'utilisateur
         if ($question && ($question->user_id === $userId || $user->is_admin)) {
             return $question->delete(); // Renvoie true si supprimé
         }
 
-        return false; // Renvoie false si introuvable ou pas le bon propriétaire
+        return false; 
     }
 } 

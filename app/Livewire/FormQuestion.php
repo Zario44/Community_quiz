@@ -28,12 +28,10 @@ class FormQuestion extends Component
         }
     }
 
-    public function saveQuestion(QuestionService $questionService) // Injection de dépendance 
+    public function saveQuestion(QuestionService $questionService)
     {
-        // La validation se fait automatiquement ici 
-        // Livewire lit les attributs #[Rule] dans la classe QuestionForm
+
         $this->form->validate(); 
-        // On récupère toutes les données propres
         $data = $this->form->all(); 
 
         $notDoubled = Cache::add('question_submitted_'.auth()->id().'_'.$this->questionId, true, 3); 
@@ -44,7 +42,7 @@ class FormQuestion extends Component
                 userId: auth()->id()
             );
         } else {
-            return; // On arrête tout si c'est un doublon
+            return; 
         }
 
         return redirect()->route('confirmQuestions', ['id' => $savedQuestion->id]);

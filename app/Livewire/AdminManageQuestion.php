@@ -13,7 +13,6 @@ use App\Services\QuestionService;
 class AdminManageQuestion extends Component
 {
     use WithPagination;
-    // C'est ICI que l'action de suppression doit vivre
     public function deleteQuestion($id, QuestionService $service)
     {
         $deleted = $service->deleteQuestion($id); // Suppression de la question via le service

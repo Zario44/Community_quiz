@@ -17,13 +17,8 @@ class ScoreRepository
     }
 
     public function bestScores()
-    {
-        // Clé du cache : 'leaderboard_top_10'
-        // Durée : 300 secondes (5 minutes)
-        
+    {        
         return Cache::remember('leaderboard_top_10', 300, function () {
-
-            //Ce code ne s'exécutera qu'une fois toutes les 5 minutes !
             return DB::table('scores')
                 ->join('users', 'scores.user_id', '=', 'users.id')
                 ->select('users.name', 'scores.score')

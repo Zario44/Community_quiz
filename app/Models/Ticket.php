@@ -18,13 +18,11 @@ class Ticket extends Model
         'priority'
     ];
 
-    // Relation : Un ticket appartient à un User
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relation : Un ticket peut concerner une Question
     public function question()
     {
         return $this->belongsTo(Question::class);

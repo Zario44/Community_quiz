@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'menu_title' => 'Quiz', // La clé qu'on a ajoutée pour le menu
+    'menu_title' => 'Quiz', 
     
     'form' => [
         'title_add' => 'Add a Question',

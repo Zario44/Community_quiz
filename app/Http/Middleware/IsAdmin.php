@@ -17,14 +17,10 @@ class IsAdmin
 
     public function handle(Request $request, Closure $next): Response
     {
-        // Si l'utilisateur n'est pas connecté OU qu'il n'est pas admin...
         if (!Auth::check() || Auth::user()->is_admin !== true) {
-            
-            // ... On le vire (Redirection ou Erreur)
             abort(403, "Accès interdit");
         }
 
-        // Si on arrive ici, c'est que tout est bon. On passe la main à la suite.
         return $next($request);
     }
 }
