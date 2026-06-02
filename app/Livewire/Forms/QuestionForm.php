@@ -7,7 +7,6 @@ use Livewire\Attributes\Rule;
 
 class QuestionForm extends Form
 {
-    // On déplace les propriétés ici avec leurs règles "collées" au-dessus
     
     #[Rule('required|string')]
     public $tag = '';

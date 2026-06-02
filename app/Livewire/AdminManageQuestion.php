@@ -9,13 +9,14 @@ use App\Models\Question;
 use App\Models\User; 
 use Livewire\WithPagination;
 use App\Services\QuestionService;
+use Illuminate\Auth\AuthManager;
 
 class AdminManageQuestion extends Component
 {
     use WithPagination;
     public function deleteQuestion($id, QuestionService $service)
     {
-        $deleted = $service->deleteQuestion($id); // Suppression de la question via le service
+        $deleted = $service->deleteQuestion($id, auth()->id()); // Suppression de la question via le service
     }
 
     public function render()

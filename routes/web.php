@@ -10,25 +10,23 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\QuestionController;
 use App\Livewire\AdminManageQuestion;
 use App\Http\Controllers\Dashboard;
-use App\Livewire\Ticket;
+
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
 Route::get('dashboard', [Dashboard::class, 'index'])
-->middleware(['auth', 'verified'])
+->middleware(['auth'])
 ->name('dashboard');
 
 Route::get('questions/form', FormQuestion::class)
-->middleware(['auth', 'verified'])
+->middleware(['auth'])
 ->name('questions-form');
 
 
 Route::get('questions/confirm/{id}', function ($id) {
-    
-    // On cherche manuellement
-    $question = Question::find($id);
+    $question = Question::find($id, auth()->id());
 
     // Si on ne trouve pas, on gère l'erreur nous-mêmes
     if (!$question) {
@@ -36,25 +34,21 @@ Route::get('questions/confirm/{id}', function ($id) {
     }
     return view('questions.confirm', ['question' => $question]);
 })
-->middleware(['auth', 'verified'])
+->middleware(['auth'])
 ->name('confirmQuestions');
 
 
 Route::get('user/questions', UserQuestions::class)
-->middleware(['auth', 'verified'])
+->middleware(['auth'])
 ->name('user.questions');
 
 Route::get('quiz', QuizController::class . '@index')
-->middleware(['auth', 'verified'])
+->middleware(['auth'])
 ->name('quiz');
 
 Route::get('quiz/play', GenerateQuiz::class)
-->middleware(['auth'], 'verified')
+->middleware(['auth'])
 ->name('quiz.play');
-
-Route::get('ticket/question', Ticket::class)
-->middleware(['auth', 'verified'])
-->name('ticket.question');
 
 Route::middleware([IsAdmin::class])
 ->prefix('admin')
