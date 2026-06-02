@@ -1,4 +1,4 @@
-# 🏆 Community_Quiz in Laavel Livewire
+# 🏆 Community_Quiz in Laravel Livewire
 A dynamic, full-stack Quiz application built with Laravel and Livewire. This platform allows users to create accounts, play quizzes, climb the global leaderboard, and even create their own questions or report errors via a built-in ticketing system.
 
 ## ✨ Features
