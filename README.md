@@ -15,7 +15,7 @@ A dynamic, full-stack Quiz application built with Laravel and Livewire. This pla
 - Dark Mode: Fully responsive and accessible UI with native dark mode support.
 
 ## 🛠️ Tech Stack
-- Backend: Laravel 11, PHP 8.2+
+- Backend: Laravel 12, PHP 8.2+
 
 - Frontend: Livewire 3, Tailwind CSS, Flux UI Components
 
