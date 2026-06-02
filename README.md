@@ -84,9 +84,9 @@ Why? Fetching the top 10 best scores requires specific ordering and limits. By p
 ### 3. Robust Testing Strategy (AAA Pattern)
 The project includes a comprehensive test suite using the Arrange-Act-Assert (AAA) methodology.
 
-Why? Testing features like score calculation (GenerateQuiz) and question creation are critical. We utilized Laravel's RefreshDatabase trait and Factory states (->has()) to simulate database records and ensure that regressions do not occur when new features are added.
+Why? Testing features like score calculation (GenerateQuiz) and question creation are critical. I utilized Laravel's RefreshDatabase trait and Factory states (->has()) to simulate database records and ensure that regressions do not occur when new features are added.
 
 ### 4. UI Consistency with Flux UI & Tailwind
-We utilized Flux UI alongside Tailwind CSS for authentication views and dashboard layouts.
+I utilized Flux UI alongside Tailwind CSS for authentication views and dashboard layouts.
 
 Why? It provides accessible, unstyled, and highly customizable blade components out of the box. This allowed us to quickly build a polished, gamified interface (with custom SVG icons, gradients, and Dark Mode) while keeping the HTML semantic and clean.
