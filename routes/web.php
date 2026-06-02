@@ -63,4 +63,3 @@ Route::middleware([IsAdmin::class])
     Route::get('questions', AdminManageQuestion::class)->name('questions');
 });
 
-require __DIR__.'/settings.php';
